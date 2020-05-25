@@ -21,7 +21,6 @@ public class UserServiceImpl implements UserService {
         user.setUsername(username);
         user.setPassword(password);
         this.userDao.save(user);
-
     }
 
 
