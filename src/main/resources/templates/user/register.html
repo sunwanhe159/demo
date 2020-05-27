@@ -28,6 +28,12 @@
         </tr>
         <tr>
             <td>
+                Email:
+                <input id="email" type="text">
+            </td>
+        </tr>
+        <tr>
+            <td>
                 <input type="submit" value="确定" onclick="subData()">
             </td>
         </tr>
@@ -41,7 +47,8 @@
                 url : "/user/register",
                 data:{
                     username : $("#username").val(),
-                    password : $("#password").val()
+                    password : $("#password").val(),
+                    email    : $("#email").val()
                 }
             })
         })

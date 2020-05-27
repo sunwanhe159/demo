@@ -3,8 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
+    <script th:src="@{/layui/layui.js}"></script>
+    <script th:src="@{/js/jquery-1.11.2.min.js}"></script>
+    <script th:src="@{/js/jquery.cookie.js}"></script>
+    <script th:src="@{/js/quark_api.js}"></script>
 </head>
 <body>
+<form method="post">
+    <div class="layui-form-item">
+        <label for="email" class="layui-form-label">邮箱</label>
+        <div class="layui-input-inline">
+            <input type="text" id="email" name="email" required lay-verify="email"
+                   autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label for="password" class="layui-form-label">密码</label>
+        <div class="layui-input-inline">
+            <input type="password" id="password" name="password" required lay-verify="required"
+                   autocomplete="off" class="layui-input">
+        </div>
+    </div>
 
+    <div class="layui-form-item">
+        <button class="layui-btn" lay-filter="*" lay-submit>立即登录</button>
+    </div>
+
+</form>
+<script>
+
+    layui.use(['form'], function () {
+
+
+        var form = layui.form;
+
+
+        form.on('submit(*)', function (data) {
+
+            $.post("/user/login", data.field,
+                function (data) {
+                    if (data.status == 200) {
+                        //设置Cookie
+                        setCookie(data.data)
+                        layer.msg("登录成功", {
+                            icon: 1,
+                            time: 1000 //1秒关闭
+                        }, function(){
+                            location.href = "/index";
+                        });
+
+                    } else if (data.status == 400) {
+                        layer.msg(data.error,{icon:7});
+                    } else {
+                        layer.msg(data.error,{icon:5});
+                    }
+                }, "json");
+
+            return false;
+        });
+    });
+
+</script>
 </body>
 </html>

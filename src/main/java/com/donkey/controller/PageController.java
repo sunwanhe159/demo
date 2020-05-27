@@ -27,4 +27,13 @@ public class PageController {
         return "/user/register";
     }
 
+    /**
+     * 用户登陆页面。
+     * @return
+     */
+    @RequestMapping("/login")
+    public String userLoginPage() {
+        return "/user/login";
+    }
+
 }
